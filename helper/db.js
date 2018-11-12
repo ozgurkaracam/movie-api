@@ -6,6 +6,7 @@ module.exports=()=>{
         console.log('MongoDB: Connected');
     });
     mongoose.connection.on('error',(err)=>{
-        console.log('hata çıktı'+err);
+        console.log('MongoDB: Bağlantı Hatası: '+err);
     });
+
 };
