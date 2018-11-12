@@ -37,7 +37,7 @@ router.delete('/:id',(req,res)=>{
   promise.then((data)=>{
     res.json({status:'OK'});
   }).catch((err)=>{
-    res.json({error:err});
+    res.json({error:err.message});
   });
 });
 
@@ -53,7 +53,7 @@ router.post('/', (req,res,next)=>{
   });
   movie.save((err,data)=>{
     if(err)
-      res.json(err);
+      res.json(err.message);
     else{
       res.json({status: 1});
     }
