@@ -22,6 +22,17 @@ router.get('/:id',(req,res,next)=>{
   });
 });
 
+router.put('/:id',(req,res,next)=>{
+  Movie.findByIdAndUpdate(req.params.id,req.body,(err,data)=>{
+    if(err)
+      res.json({err : err});
+    else{
+      res.json({status: 'OK'});
+      }
+  });
+});
+
+
 router.post('/', (req,res,next)=>{
   const {title,imdb_score,category,country,year}=req.body;
   const movie=new Movie({
