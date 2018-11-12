@@ -4,7 +4,22 @@ const router = express.Router();
 const Movie=require('../models/Movie');
 /* GET users listing. */
 router.get('/', (req, res, next) => {
-  res.send('movies router');
+  Movie.find({},(err,data)=>{
+    if(err)
+      res.json({status: err});
+    else{
+      res.json(data);
+    }
+  });
+});
+
+router.get('/:id',(req,res,next)=>{
+  Movie.findById(req.params.id,(err,data)=>{
+    if(err)
+      res.json({status:err});
+    else
+      res.json(data);
+  });
 });
 
 router.post('/', (req,res,next)=>{
