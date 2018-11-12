@@ -13,6 +13,16 @@ router.get('/', (req, res, next) => {
   });
 });
 
+router.get('/top10/',(req,res)=>{
+    Movie.find({},(err,data)=>{
+        if(err)
+            res.json({error: err.message});
+        else{
+            res.json(data);
+        }
+    }).limit(10).sort({imdb_score:-1});
+});
+
 router.get('/:id',(req,res,next)=>{
   Movie.findById(req.params.id,(err,data)=>{
     if(err)
@@ -21,6 +31,8 @@ router.get('/:id',(req,res,next)=>{
       res.json(data);
   });
 });
+
+
 
 router.put('/:id',(req,res,next)=>{
   Movie.findByIdAndUpdate(req.params.id,req.body,(err,data)=>{
