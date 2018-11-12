@@ -32,6 +32,15 @@ router.put('/:id',(req,res,next)=>{
   });
 });
 
+router.delete('/:id',(req,res)=>{
+  const promise = Movie.findByIdAndRemove(req.params.id);
+  promise.then((data)=>{
+    res.json({status:'OK'});
+  }).catch((err)=>{
+    res.json({error:err});
+  });
+});
+
 
 router.post('/', (req,res,next)=>{
   const {title,imdb_score,category,country,year}=req.body;
