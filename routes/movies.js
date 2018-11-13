@@ -35,7 +35,7 @@ router.get('/:id',(req,res,next)=>{
 
 
 router.put('/:id',(req,res,next)=>{
-  Movie.findByIdAndUpdate(req.params.id,req.body,(err,data)=>{
+  Movie.findByIdAndUpdate(req.params.id,req.body,{new:true},(err,data)=>{
     if(err)
       res.json({err : err});
     else{

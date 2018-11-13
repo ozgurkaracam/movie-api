@@ -23,7 +23,7 @@ router.get('/:id',(req,res,next)=>{
 });
 
 router.put('/:id',(req,res,next)=> {
-   Director.findByIdAndUpdate(req.params.id,res.body,(err,data)=>{
+   Director.findByIdAndUpdate(req.params.id,req.body,{new:true},(err,data)=>{
        if(err)
            res.json({error:err.message});
        else
