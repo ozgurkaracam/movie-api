@@ -7,7 +7,7 @@ const DirectorSchema=new Schema({
     bio:String,
     createdAt:{
         type:Date,
-        Default: Date.now()
+        default: Date.now()
     }
 });
 
