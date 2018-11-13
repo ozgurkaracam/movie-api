@@ -53,6 +53,21 @@ router.delete('/:id',(req,res)=>{
   });
 });
 
+router.get('/between/:start_date/:end_date',(req,res,next)=>{
+    Movie.find({
+        year : {
+            '$gte': parseInt(req.params.start_date),
+            '$lte': parseInt(req.params.end_date)
+        }
+    },(err,data)=>{
+        if(err)
+            res.json({error:err.message});
+        else{
+            res.json(data);
+        }
+    });
+});
+
 
 router.post('/', (req,res,next)=>{
   const {title,imdb_score,category,country,year}=req.body;
