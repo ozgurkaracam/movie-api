@@ -4,7 +4,19 @@ const router = express.Router();
 const Movie=require('../models/Movie');
 /* GET users listing. */
 router.get('/', (req, res, next) => {
-  Movie.find({},(err,data)=>{
+  Movie.aggregate([
+      {
+          $lookup: {
+              from: 'directors',
+              localField: 'director_id',
+              foreignField: '_id',
+              as: 'director'
+          }
+      },
+      {
+          $unwind: '$director'
+      }
+  ],(err,data)=>{
     if(err)
       res.json({status: err});
     else{
@@ -70,13 +82,14 @@ router.get('/between/:start_date/:end_date',(req,res,next)=>{
 
 
 router.post('/', (req,res,next)=>{
-  const {title,imdb_score,category,country,year}=req.body;
+  const {title,imdb_score,category,country,year,director_id}=req.body;
   const movie=new Movie({
       title: title,
       imdb_score: imdb_score,
       category: category,
       country: country,
-      year: year
+      year: year,
+      director_id: director_id
   });
   movie.save((err,data)=>{
     if(err)

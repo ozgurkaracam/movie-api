@@ -5,7 +5,43 @@ const Director=require('../models/Director');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-    Director.find({},(err,data)=>{
+    Director.aggregate([
+        {
+            $lookup: {
+                from: 'movies',
+                localField: '_id',
+                foreignField: 'director_id',
+                as: 'movies'
+            }
+        },
+        {
+            $unwind: {
+                path: '$movies',
+                preserveNullAndEmptyArrays: true
+            }
+        },
+        {
+            $group: {
+                _id: {
+                    _id: '$_id',
+                    name: '$name',
+                    surname: '$surname',
+                    bio: '$bio'
+                },
+                movies: {
+                    $push: '$movies'
+                }
+            }
+        },
+        {
+            $project: {
+                _id: '$_id._id',
+                name: '$_id.name',
+                surname: '$_id.surname',
+                movies: '$movies'
+            }
+        }
+    ],(err,data)=>{
         if(err)
             res.json({error:err.message});
         else
