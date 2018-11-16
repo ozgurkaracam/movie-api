@@ -22,4 +22,28 @@ router.post('/register', (req, res, next) => {
 
 });
 
+router.post('/authentication',(req,res)=>{
+    User.findOne({username:req.body.username},(err,data)=>{
+        if(err)
+            res.json({error:err.message});
+        else{
+            if(!data)
+                res.json({status:'Kullanıcı bulunamadı!'});
+            else{
+                bcrypt.compare(req.body.password,data.password,(err,data)=>{
+                    if(err)
+                        res.json({error:err.message});
+                    else{
+                        if(data)
+                            res.json({status:'giriş başarılı'});
+                        else
+                            res.json({status:'yanlış parola.'})
+                    }
+
+                });
+            }
+        }
+    });
+});
+
 module.exports = router;
