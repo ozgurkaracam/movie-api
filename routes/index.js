@@ -6,7 +6,7 @@ const jwt= require('jsonwebtoken');
 
 
 router.get('/',(req,res,next)=>{
-   res.send("anasayfa hoşgeldiniz. ... ... ... ") ;
+   res.send("anasayfa hoşgeldiniz. Ö.K.  ") ;
 });
 
 router.post('/register', (req, res, next) => {
