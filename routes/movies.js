@@ -93,7 +93,9 @@ router.post('/', (req,res,next)=>{
   });
   movie.save((err,data)=>{
     if(err)
-      res.json(err.message);
+      res.json({
+          error:err.message
+      });
     else{
       res.json({status: 1});
     }

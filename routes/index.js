@@ -44,7 +44,7 @@ router.post('/authentication',(req,res)=>{
                             req.headers['x-access-token']=token;
                             res.json({status:true,
                                     token
-                            })
+                            });
                         }
 
 

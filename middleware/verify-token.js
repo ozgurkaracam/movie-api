@@ -9,7 +9,7 @@ module.exports= (req,res,next)=> {
                message: 'Failed to authenticate token.'
            });
        else{
-           req.body=decoded.username;
+           req.body.username=decoded.username;
 
            next();
 
