@@ -29,34 +29,49 @@ describe('/api/movies tests', () => {
                 });
         })
     });
-    describe('/POST movie',()=>{
-        it('it should add a movie',(done)=>{
+    describe('/POST movies', () => {
+        it('it should POST  movies', (done) => {
             chai.request(server)
-                .post('api/movies')
+                .post('/api/movies')
                 .send({
-                    title:'asdasd',
+                    title:"deneme",
                     imdb_score:5,
-                    category:'asdasdasd',
-                    country:'türkiye',
-                    year:'2019',
-                    director_id:'5bea70ab57852e2a2e5522ba'
+                    category:"korku",
+                    country:"türkiye"
                 })
-                .set('x-access-token',token)
-                .end((err,res)=>{
+                .set('x-access-token', token)
+                .end((err, res) => {
+                    movieId=res.body.data._id;
                     res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("data");
                     done();
                 });
         })
     });
-
-    describe('/GET/:movieId',()=>{
-        it('it should get /:movieId',(done)=>{
+    describe('/GET ma movie',()=>{
+        it('it should GET a movie',(done)=>{
             chai.request(server)
                 .get('/api/movies/'+movieId)
                 .set('x-access-token',token)
                 .end((err,res)=>{
                     res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('title');
                     done();
+                });
+        })
+    });
+
+    describe('/DELETE a movie',()=>{
+        it('it should delete a movie',(done)=>{
+            chai.request(server)
+                .delete('/api/movies/'+movieId)
+                .set('x-access-token',token)
+                .end((err,res)=>{
+                   res.should.have.status(200);
+                   res.body.should.have.property('status');
+                   done();
                 });
         })
     });

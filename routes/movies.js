@@ -97,7 +97,8 @@ router.post('/', (req,res,next)=>{
           error:err.message
       });
     else{
-      res.json({status: 1});
+      res.json({status: 1,
+      data});
     }
   });
 

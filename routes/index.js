@@ -5,6 +5,10 @@ const User=require('../models/User');
 const jwt= require('jsonwebtoken');
 
 
+router.get('/',(req,res,next)=>{
+   req.send("anasayfa") ;
+});
+
 router.post('/register', (req, res, next) => {
 
     bcrypt.hash(req.body.password, 10).then( (hash)=> {
